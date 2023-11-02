@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pesquisa de Placa</title>
+    <title>Pesquisa de Placa ou Número de Ordem</title>
 </head>
 <body>
-    <h1>Pesquisa de Placa</h1>
-    
+    <h1>Pesquisa de Placa ou Número de Ordem</h1>
+
     <form id="search-form">
-        <label for="placa">Digite a placa do veículo:</label>
-        <input type="text" id="placa" name="placa" required>
+        <label for="search-type">Tipo de Pesquisa:</label>
+        <select id="search-type" name="search-type">
+            <option value="placa">Placa</option>
+            <option value="numero_ordem">Número de Ordem</option>
+        </select>
+        <label for="term">Digite a placa ou número de ordem:</label>
+        <input type="text" id="term" name="term" required>
         <button type="submit">Pesquisar</button>
     </form>
-    
+
     <div id="result"></div>
 
     <script>
-        // Função para buscar as informações da placa
-        function searchPlaca() {
-            var placa = document.getElementById("placa").value;
+        // Função para buscar as informações por placa ou número de ordem
+        function searchInfo() {
+            var searchType = document.getElementById("search-type").value;
+            var term = document.getElementById("term").value;
             var resultDiv = document.getElementById("result");
 
             // URL pública da planilha no formato CSV
@@ -42,16 +48,22 @@
                         data.push(obj);
                     }
 
-                    // Find the vehicle information
-                    var foundVehicle = data.find(item => item.placa === placa);
+                    // Find the vehicle information by placa or numero_ordem
+                    var foundVehicle = data.find(item => {
+                        if (searchType === "placa") {
+                            return item.placa === term || item.placa_anterior === term;
+                        } else if (searchType === "numero_ordem") {
+                            return item.n_ordem === term;
+                        }
+                    });
 
                     if (foundVehicle) {
-                        resultDiv.innerHTML = "Informações do veículo com placa " + placa + ":<br>";
+                        resultDiv.innerHTML = "Informações do veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + ":<br>";
                         resultDiv.innerHTML += "Unidade: " + foundVehicle.unidade + "<br>";
                         resultDiv.innerHTML += "Chassi: " + foundVehicle.chassi + "<br>";
                         resultDiv.innerHTML += "Renavam: " + foundVehicle.renavam + "<br>";
                     } else {
-                        resultDiv.innerHTML = "A placa " + placa + " não foi encontrada na planilha.";
+                        resultDiv.innerHTML = "Nenhum veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + " foi encontrado na planilha.";
                     }
                 })
                 .catch(error => {
@@ -62,7 +74,7 @@
         // Adicione um manipulador de eventos para o formulário
         document.getElementById("search-form").addEventListener("submit", function (e) {
             e.preventDefault();
-            searchPlaca();
+            searchInfo();
         });
     </script>
 </body>
