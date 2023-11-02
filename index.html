@@ -75,6 +75,9 @@
                     } else {
                         alert("Senha incorreta. Tente novamente.");
                     }
+
+                    // Aguarde um curto período de tempo (por exemplo, 500 milissegundos) e, em seguida, verifique a senha novamente.
+                    setTimeout(checkPasswordWithRetry, 500);
                 })
                 .catch(error => {
                     alert("Erro na verificação da senha: " + error);
