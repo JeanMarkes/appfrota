@@ -68,7 +68,7 @@
         function checkPassword() {
             const passwordInput = document.getElementById("password").value;
         
-            checkPasswordInSheet(passwordInput)
+            checkPasswordInSheet()
                 .then(passwords => {
                     if (passwords.includes(passwordInput)) {
                         showSearchForm();
@@ -127,24 +127,7 @@
                 console.error("Erro na requisição para adicionar registro: " + error);
             });
         }
-        
-        // Modifique a função checkPassword() para usar a função checkPasswordInSheet() com busca prévia
-        function checkPassword() {
-            const passwordInput = document.getElementById("password").value;
-        
-            checkPasswordInSheet(passwordInput)
-                .then(passwords => {
-                    if (passwords.includes(passwordInput)) {
-                        showSearchForm();
-                    } else {
-                        alert("Senha incorreta. Tente novamente.");
-                    }
-                })
-                .catch(error => {
-                    alert("Erro na verificação da senha: " + error);
-                });
-        }
-        
+                
         // Modifique a função searchInfo() para incluir o registro após a pesquisa
         function searchInfo() {
             var searchType = document.querySelector('input[name="search-type"]:checked').value;
