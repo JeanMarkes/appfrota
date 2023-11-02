@@ -7,11 +7,11 @@
     <h1>Pesquisa de Placa ou Número de Ordem</h1>
 
     <form id="search-form">
-        <label for="search-type">Tipo de Pesquisa:</label>
-        <select id="search-type" name="search-type">
-            <option value="placa">Placa</option>
-            <option value="numero_ordem">Número de Ordem</option>
-        </select>
+        <input type="radio" id="search-type-placa" name="search-type" value="placa" checked>
+        <label for="search-type-placa">Pesquisar por Placa</label>
+        <input type="radio" id="search-type-numero-ordem" name="search-type" value="numero_ordem">
+        <label for="search-type-numero-ordem">Pesquisar por Número de Ordem</label>
+        
         <label for="term">Digite a placa ou número de ordem:</label>
         <input type="text" id="term" name="term" required>
         <button type="submit">Pesquisar</button>
@@ -22,7 +22,7 @@
     <script>
         // Função para buscar as informações por placa ou número de ordem
         function searchInfo() {
-            var searchType = document.getElementById("search-type").value;
+            var searchType = document.querySelector('input[name="search-type"]:checked').value;
             var term = document.getElementById("term").value;
             var resultDiv = document.getElementById("result");
 
