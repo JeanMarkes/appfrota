@@ -96,35 +96,7 @@
         document.getElementById("search-form").addEventListener("submit", function (e) {
             e.preventDefault();
             searchInfo();
-        });
-
-        // Função para registrar as consultas
-        function logQuery(senha, tipoPesquisa, dadoPesquisado) {
-            // Obter a data e hora atual
-            const dataHora = new Date().toLocaleString();
-        
-            // Montar os dados da consulta em uma linha
-            const linhaRegistro = `${dataHora},${senha},${tipoPesquisa},${dadoPesquisado}`;
-        
-            // URL pública da planilha de registro no formato CSV
-            const urlRegistro = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRul4T7a8YGSZ5OONIujRqCV-ro-pZtGpLd-dEmmnxBQ7YMEfBV8I2Xssawiv4fLHKkilZd2YEBHx5R/pub?gid=1115192448&single=true&output=csv";
-        
-            // Realizar uma requisição POST para adicionar o registro à planilha
-            fetch(urlRegistro, {
-                method: "POST",
-                body: linhaRegistro
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log("Registro da consulta adicionado com sucesso.");
-                } else {
-                    console.error("Erro ao adicionar registro da consulta.");
-                }
-            })
-            .catch(error => {
-                console.error("Erro na requisição para adicionar registro: " + error);
-            });
-        }                
+        });             
     
         // Função para buscar as informações por placa ou número de ordem
         function searchInfo() {
@@ -184,8 +156,7 @@
                             resultDiv.innerHTML += "Municipio: " + foundVehicle.municipio + "<br>";
                             resultDiv.innerHTML += "CNPJ: " + foundVehicle.cnpj + "<br>";
                             resultDiv.innerHTML += "Placa Anterior: " + foundVehicle.placa_anterior + "<br>";
-                            resultDiv.innerHTML += "Sub Unidade: " + foundVehicle.sub_unidade + "<br>";  
-                            logQuery(senha, searchType, term);
+                            resultDiv.innerHTML += "Sub Unidade: " + foundVehicle.sub_unidade + "<br>";                              
                             resultDiv.innerHTML += "<br>"; // Separe cada veículo com uma linha em branco
                         });
                     } else {
