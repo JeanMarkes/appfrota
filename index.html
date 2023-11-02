@@ -117,25 +117,27 @@
         
                     if (foundVehicles.length > 0) {
                         resultDiv.innerHTML = "Informações do veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + ":<br> <br>";                        
-                        resultDiv.innerHTML += "Nº Ordem: " + foundVehicle.n_ordem + "<br>";
-                        resultDiv.innerHTML += "Nº Anterior: " + foundVehicle.n_anterior + "<br>";
-                        resultDiv.innerHTML += "Empresa: " + foundVehicle.empresa + "<br>";
-                        resultDiv.innerHTML += "Unidade: " + foundVehicle.unidade + "<br>";
-                        resultDiv.innerHTML += "Placa:   " + foundVehicle.placa + "<br>";
-                        resultDiv.innerHTML += "Chassi:  " + foundVehicle.chassi + "<br>";
-                        resultDiv.innerHTML += "Cap:     " + foundVehicle.cap + "<br>";
-                        resultDiv.innerHTML += "Fab: " + foundVehicle.ano_fab + "<br>";
-                        resultDiv.innerHTML += "Mod: " + foundVehicle.ano_mod + "<br>";
-                        resultDiv.innerHTML += "Tipo Veiculo: " + foundVehicle.tipo_veiculo + "<br>";
-                        resultDiv.innerHTML += "Tipo Frota: " + foundVehicle.tipo_frota + "<br>";
-                        resultDiv.innerHTML += "Modelo: " + foundVehicle.modelo + "<br>";
-                        resultDiv.innerHTML += "Carroceria: " + foundVehicle.carroceira + "<br>";
-                        resultDiv.innerHTML += "Cor: " + foundVehicle.cor + "<br>";
-                        resultDiv.innerHTML += "Municipio: " + foundVehicle.municipio + "<br>";
-                        resultDiv.innerHTML += "CNPJ: " + foundVehicle.cnpj + "<br>";
-                        resultDiv.innerHTML += "Placa Anterior: " + foundVehicle.placa_anterior + "<br>";
-                        resultDiv.innerHTML += "Sub Unidade: " + foundVehicle.sub_unidade + "<br>";
-                        resultDiv.innerHTML += "CNPJ: " + foundVehicle.cnpj + "<br>";
+                        foundVehicles.forEach(foundVehicle => {
+                            resultDiv.innerHTML += "Nº Ordem: " + foundVehicle.n_ordem + "<br>";
+                            resultDiv.innerHTML += "Nº Anterior: " + foundVehicle.n_anterior + "<br>";
+                            resultDiv.innerHTML += "Empresa: " + foundVehicle.empresa + "<br>";
+                            resultDiv.innerHTML += "Unidade: " + foundVehicle.unidade + "<br>";
+                            resultDiv.innerHTML += "Placa:   " + foundVehicle.placa + "<br>";
+                            resultDiv.innerHTML += "Chassi:  " + foundVehicle.chassi + "<br>";
+                            resultDiv.innerHTML += "Cap:     " + foundVehicle.cap + "<br>";
+                            resultDiv.innerHTML += "Fab: " + foundVehicle.ano_fab + "<br>";
+                            resultDiv.innerHTML += "Mod: " + foundVehicle.ano_mod + "<br>";
+                            resultDiv.innerHTML += "Tipo Veiculo: " + foundVehicle.tipo_veiculo + "<br>";
+                            resultDiv.innerHTML += "Tipo Frota: " + foundVehicle.tipo_frota + "<br>";
+                            resultDiv.innerHTML += "Modelo: " + foundVehicle.modelo + "<br>";
+                            resultDiv.innerHTML += "Carroceria: " + foundVehicle.carroceira + "<br>";
+                            resultDiv.innerHTML += "Cor: " + foundVehicle.cor + "<br>";
+                            resultDiv.innerHTML += "Municipio: " + foundVehicle.municipio + "<br>";
+                            resultDiv.innerHTML += "CNPJ: " + foundVehicle.cnpj + "<br>";
+                            resultDiv.innerHTML += "Placa Anterior: " + foundVehicle.placa_anterior + "<br>";
+                            resultDiv.innerHTML += "Sub Unidade: " + foundVehicle.sub_unidade + "<br>";                        
+                            resultDiv.innerHTML += "<br>"; // Separe cada veículo com uma linha em branco
+                        });
                     } else {
                         resultDiv.innerHTML = "Nenhum veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + " foi encontrado na planilha.";
                     }
