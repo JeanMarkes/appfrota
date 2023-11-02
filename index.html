@@ -42,6 +42,17 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Obtém o elemento de input
+            var inputElement = document.getElementById("term");
+
+            // Adiciona um ouvinte de evento para o evento "input"
+            inputElement.addEventListener("input", function() {
+                // Converte o valor do input para maiúsculas
+                inputElement.value = inputElement.value.toUpperCase();
+            });
+        });
+        
         // Função para verificar a senha na aba "Acesso" e na coluna "senha"
         function checkPasswordInSheet(password) {
             // URL pública da planilha na aba "Senha" no formato CSV
