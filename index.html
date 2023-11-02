@@ -7,7 +7,7 @@
 </head>
 <body>
     <h2>Acesso Restrito.</h2>
-
+    
     <form id="login-form">
         <label for="password">Senha:</label>
         <input type="password" id="password" name="password" required>
@@ -42,9 +42,9 @@
     </div>
 
     <script>
-        // Função para verificar a senha na aba "Acesso" e na coluna "senha"
+        // Função para verificar a senha na aba "Senha" e na coluna "senha"
         function checkPasswordInSheet(password) {
-            // URL pública da planilha na aba "Acesso" no formato CSV
+            // URL pública da planilha na aba "Senha" no formato CSV
             var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRul4T7a8YGSZ5OONIujRqCV-ro-pZtGpLd-dEmmnxBQ7YMEfBV8I2Xssawiv4fLHKkilZd2YEBHx5R/pub?gid=1343551425&single=true&output=csv";
         
             return fetch(url)
@@ -58,11 +58,16 @@
                     return passwords.map(line => line.split(",")[passwordIndex]);
                 });
         }
-        
+
+        // Função para mostrar o formulário de pesquisa após o login
+        function showSearchForm() {
+            document.getElementById("search-container").style.display = "block";
+        }
+
         // Modifique a função checkPassword() para usar a função checkPasswordInSheet()
         function checkPassword() {
             const passwordInput = document.getElementById("password").value;
-        
+
             checkPasswordInSheet(passwordInput)
                 .then(passwords => {
                     if (passwords.includes(passwordInput)) {
@@ -75,8 +80,13 @@
                     alert("Erro na verificação da senha: " + error);
                 });
         }
-            
-        // Adicione um manipulador de eventos para o formulário de login
+
+        // Função para buscar informações por placa ou número de ordem
+        function searchInfo() {
+            // ...
+        }
+
+        // Adicione manipuladores de eventos para os formulários
         document.getElementById("login-form").addEventListener("submit", function (e) {
             e.preventDefault();
             checkPassword();
