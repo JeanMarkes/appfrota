@@ -68,6 +68,7 @@
 
                     if (foundVehicle) {
                         resultDiv.innerHTML = "Informações do veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + ":<br>";
+                        <br> <!-- Adicione outra quebra de linha aqui -->
                         resultDiv.innerHTML += "Nº Ordem: " + foundVehicle.n_ordem + "<br>";
                         resultDiv.innerHTML += "Nº Anterior: " + foundVehicle.n_anterior + "<br>";
                         resultDiv.innerHTML += "Empresa: " + foundVehicle.empresa + "<br>";
