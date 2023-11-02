@@ -64,20 +64,17 @@
             document.getElementById("search-container").style.display = "block";
         }
 
-        // Modifique a função checkPassword() para usar a função checkPasswordInSheet()
+        // Modifique a função checkPassword() para usar a função checkPasswordInSheet() com busca prévia
         function checkPassword() {
             const passwordInput = document.getElementById("password").value;
-
-            checkPasswordInSheet(passwordInput)
+        
+            checkPasswordInSheet()
                 .then(passwords => {
                     if (passwords.includes(passwordInput)) {
                         showSearchForm();
                     } else {
                         alert("Senha incorreta. Tente novamente.");
                     }
-
-                    // Aguarde um curto período de tempo (por exemplo, 500 milissegundos) e, em seguida, verifique a senha novamente.
-                    setTimeout(checkPasswordWithRetry, 500);
                 })
                 .catch(error => {
                     alert("Erro na verificação da senha: " + error);
