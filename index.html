@@ -76,5 +76,80 @@
             // ...
         }
     </script>
+
+    <script>
+        // Função para buscar as informações por placa ou número de ordem
+        function searchInfo() {
+            var searchType = document.querySelector('input[name="search-type"]:checked').value;
+            var term = document.getElementById("term").value;
+            var resultDiv = document.getElementById("result");
+
+            // URL pública da planilha no formato CSV
+            var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRul4T7a8YGSZ5OONIujRqCV-ro-pZtGpLd-dEmmnxBQ7YMEfBV8I2Xssawiv4fLHKkilZd2YEBHx5R/pub?output=csv";
+
+            fetch(url)
+                .then(response => response.text())
+                .then(csvData => {
+                    // Parse CSV data into an array of objects
+                    var lines = csvData.split("\n");
+                    var headers = lines[0].split(",");
+                    var data = [];
+
+                    for (var i = 1; i < lines.length; i++) {
+                        var currentLine = lines[i].split(",");
+                        var obj = {};
+
+                        for (var j = 0; j < headers.length; j++) {
+                            obj[headers[j]] = currentLine[j];
+                        }
+
+                        data.push(obj);
+                    }
+
+                    // Find the vehicle information by placa or numero_ordem
+                    var foundVehicle = data.find(item => {
+                        if (searchType === "placa") {
+                            return item.placa === term || item.placa_anterior === term;
+                        } else if (searchType === "numero_ordem") {
+                            return item.n_ordem === term;
+                        }
+                    });
+
+                    if (foundVehicle) {
+                        resultDiv.innerHTML = "Informações do veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + ":<br> <br>";                        
+                        resultDiv.innerHTML += "Nº Ordem: " + foundVehicle.n_ordem + "<br>";
+                        resultDiv.innerHTML += "Nº Anterior: " + foundVehicle.n_anterior + "<br>";
+                        resultDiv.innerHTML += "Empresa: " + foundVehicle.empresa + "<br>";
+                        resultDiv.innerHTML += "Unidade: " + foundVehicle.unidade + "<br>";
+                        resultDiv.innerHTML += "Placa:   " + foundVehicle.placa + "<br>";
+                        resultDiv.innerHTML += "Chassi:  " + foundVehicle.chassi + "<br>";
+                        resultDiv.innerHTML += "Cap:     " + foundVehicle.cap + "<br>";
+                        resultDiv.innerHTML += "Fab: " + foundVehicle.ano_fab + "<br>";
+                        resultDiv.innerHTML += "Mod: " + foundVehicle.ano_mod + "<br>";
+                        resultDiv.innerHTML += "Tipo Veiculo: " + foundVehicle.tipo_veiculo + "<br>";
+                        resultDiv.innerHTML += "Tipo Frota: " + foundVehicle.tipo_frota + "<br>";
+                        resultDiv.innerHTML += "Modelo: " + foundVehicle.modelo + "<br>";
+                        resultDiv.innerHTML += "Carroceria: " + foundVehicle.carroceira + "<br>";
+                        resultDiv.innerHTML += "Cor: " + foundVehicle.cor + "<br>";
+                        resultDiv.innerHTML += "Municipio: " + foundVehicle.municipio + "<br>";
+                        resultDiv.innerHTML += "CNPJ: " + foundVehicle.cnpj + "<br>";
+                        resultDiv.innerHTML += "Placa Anterior: " + foundVehicle.placa_anterior + "<br>";
+                        resultDiv.innerHTML += "Sub Unidade: " + foundVehicle.sub_unidade + "<br>";
+                        resultDiv.innerHTML += "CNPJ: " + foundVehicle.cnpj + "<br>";
+                    } else {
+                        resultDiv.innerHTML = "Nenhum veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + " foi encontrado na planilha.";
+                    }
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = "Erro na pesquisa: " + error;
+                });
+        }
+
+        // Adicione um manipulador de eventos para o formulário
+        document.getElementById("search-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            searchInfo();
+        });
+    </script>    
 </body>
 </html>
