@@ -153,12 +153,12 @@
             var searchType = document.querySelector('input[name="search-type"]:checked').value;
             var term = document.getElementById("term").value;
             var resultDiv = document.getElementById("result");
-            var senha = document.getElementById("password").value; // Obtém a senha usada
+            
         
             // ...
         
             // Depois de encontrar os resultados, registre a consulta
-            logQuery(senha, searchType, term);
+
         }    
         
     </script>
@@ -169,7 +169,8 @@
             var searchType = document.querySelector('input[name="search-type"]:checked').value;
             var term = document.getElementById("term").value;
             var resultDiv = document.getElementById("result");
-
+            var senha = document.getElementById("password").value; // Obtém a senha usada
+            
             // URL pública da planilha no formato CSV
             var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRul4T7a8YGSZ5OONIujRqCV-ro-pZtGpLd-dEmmnxBQ7YMEfBV8I2Xssawiv4fLHKkilZd2YEBHx5R/pub?output=csv";            
             
@@ -221,7 +222,8 @@
                             resultDiv.innerHTML += "Municipio: " + foundVehicle.municipio + "<br>";
                             resultDiv.innerHTML += "CNPJ: " + foundVehicle.cnpj + "<br>";
                             resultDiv.innerHTML += "Placa Anterior: " + foundVehicle.placa_anterior + "<br>";
-                            resultDiv.innerHTML += "Sub Unidade: " + foundVehicle.sub_unidade + "<br>";                        
+                            resultDiv.innerHTML += "Sub Unidade: " + foundVehicle.sub_unidade + "<br>";  
+                            logQuery(senha, searchType, term);
                             resultDiv.innerHTML += "<br>"; // Separe cada veículo com uma linha em branco
                         });
                     } else {
