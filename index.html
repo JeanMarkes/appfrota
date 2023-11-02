@@ -20,6 +20,12 @@
         <br> <!-- Adicione outra quebra de linha aqui -->
         <input type="text" id="term" name="term" required>
         <button type="submit">Pesquisar</button>
+
+        <br> <!-- Adicione outra quebra de linha aqui -->
+        <br> <!-- Adicione outra quebra de linha aqui -->
+
+        <label for="term">Resultado:</label>
+        
     </form>
 
     <div id="result"></div>
@@ -67,6 +73,7 @@
                         resultDiv.innerHTML += "Unidade: " + foundVehicle.unidade + "<br>";
                         resultDiv.innerHTML += "Chassi: " + foundVehicle.chassi + "<br>";
                         resultDiv.innerHTML += "Renavam: " + foundVehicle.renavam + "<br>";
+                        resultDiv.innerHTML += "Tipo: " + foundVehicle.tipo_veiculo + "<br>";
                     } else {
                         resultDiv.innerHTML = "Nenhum veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + " foi encontrado na planilha.";
                     }
