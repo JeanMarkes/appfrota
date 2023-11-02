@@ -4,16 +4,18 @@
     <title>App Frota - Login</title>
 </head>
 <body>
-    <h1>Login</h1>
+    <h2>Acesso Restrito</h2>
 
     <form id="login-form">
         <label for="password">Senha:</label>
         <input type="password" id="password" name="password" required>
         <button type="submit">Entrar</button>
+        <br> <!-- Adicione outra quebra de linha aqui -->
+        <br> <!-- Adicione outra quebra de linha aqui -->
     </form>
 
     <div id="search-container" style="display: none;">
-        <h2>Consultas</h2>
+        <h2>Consultas liberada</h2>
 
         <form id="search-form">
             <label for="term">Tipo de Pesquisa:</label>
@@ -39,7 +41,7 @@
 
     <script>
         // Senha de exemplo (substitua pela sua senha real)
-        const password = "senha123";
+        const password = "123";
 
         // Função para mostrar o formulário de pesquisa após o login
         function showSearchForm() {
