@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pesquisa de Placa ou Número de Ordem</title>
+    <title>App Frota</title>
 </head>
 <body>
-    <h1>Pesquisa de Placa ou Número de Ordem</h1>
+    <h1>Consulta</h1>
 
     <form id="search-form">
         <input type="radio" id="search-type-placa" name="search-type" value="placa" checked>
+        <br> <!-- Adicione uma quebra de linha aqui -->
         <label for="search-type-placa">Pesquisar por Placa</label>
+        <br> <!-- Adicione uma quebra de linha aqui -->
         <input type="radio" id="search-type-numero-ordem" name="search-type" value="numero_ordem">
+        <br> <!-- Adicione uma quebra de linha aqui -->
         <label for="search-type-numero-ordem">Pesquisar por Número de Ordem</label>
         
         <label for="term">Digite a placa ou número de ordem:</label>
         <input type="text" id="term" name="term" required>
+        <br> <!-- Adicione uma quebra de linha aqui -->
         <button type="submit">Pesquisar</button>
     </form>
 
