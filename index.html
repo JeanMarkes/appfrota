@@ -107,15 +107,15 @@
                     }
 
                     // Find the vehicle information by placa or numero_ordem
-                    var foundVehicle = data.find(item => {
+                    var foundVehicles = data.filter(item => {
                         if (searchType === "placa") {
                             return item.placa === term || item.placa_anterior === term;
                         } else if (searchType === "numero_ordem") {
                             return item.n_ordem === term;
                         }
                     });
-
-                    if (foundVehicle) {
+        
+                    if (foundVehicles.length > 0) {
                         resultDiv.innerHTML = "Informações do veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + ":<br> <br>";                        
                         resultDiv.innerHTML += "Nº Ordem: " + foundVehicle.n_ordem + "<br>";
                         resultDiv.innerHTML += "Nº Anterior: " + foundVehicle.n_anterior + "<br>";
