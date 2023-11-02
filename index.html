@@ -143,10 +143,7 @@
                         if (searchType === "placa") {
                             return item.placa === term || item.placa_anterior === term;
                         } else if (searchType === "numero_ordem") {
-                            return (
-                                item.n_ordem.toLowerCase().includes(term) || // Use toLowerCase para ignorar maiúsculas/minúsculas
-                                item.n_anterior.toLowerCase().includes(term) // Use toLowerCase para ignorar maiúsculas/minúsculas
-                            );
+                            return item.n_ordem === term || item.n_anterior === term;
                         }
                     });
         
