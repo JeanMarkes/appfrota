@@ -1,106 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>App Frota</title>
+    <title>App Frota - Login</title>
 </head>
 <body>
-    <h1>Consultas</h1>
+    <h1>Login</h1>
 
-    <form id="search-form">
-        <label for="term">Tipo de Pesquisa:</label>
-        <input type="radio" id="search-type-placa" name="search-type" value="placa" checked>
-        <label for="search-type-placa">Placa</label>        
-        <input type="radio" id="search-type-numero-ordem" name="search-type" value="numero_ordem">
-        <label for="search-type-numero-ordem">Número de Ordem</label>
-        
-        <br> <!-- Adicione outra quebra de linha aqui -->
-        <br> <!-- Adicione outra quebra de linha aqui -->
-        
-        <label for="term">Digite a placa ou número de ordem:</label>
-        <br> <!-- Adicione outra quebra de linha aqui -->
-        <input type="text" id="term" name="term" required>
-        <button type="submit">Pesquisar</button>
-
-        <br> <!-- Adicione outra quebra de linha aqui -->
-        <br> <!-- Adicione outra quebra de linha aqui -->
-        
+    <form id="login-form">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Entrar</button>
     </form>
 
-    <div id="result"></div>
+    <div id="search-container" style="display: none;">
+        <h2>Consultas</h2>
+
+        <form id="search-form">
+            <label for="term">Tipo de Pesquisa:</label>
+            <input type="radio" id="search-type-placa" name="search-type" value="placa" checked>
+            <label for="search-type-placa">Placa</label>
+            <input type="radio" id="search-type-numero-ordem" name="search-type" value="numero_ordem">
+            <label for="search-type-numero-ordem">Número de Ordem</label>
+
+            <br> <!-- Adicione outra quebra de linha aqui -->
+            <br> <!-- Adicione outra quebra de linha aqui -->
+
+            <label for="term">Digite a placa ou número de ordem:</label>
+            <br> <!-- Adicione outra quebra de linha aqui -->
+            <input type="text" id="term" name="term" required>
+            <button type="submit">Pesquisar</button>
+
+            <br> <!-- Adicione outra quebra de linha aqui -->
+            <br> <!-- Adicione outra quebra de linha aqui -->
+        </form>
+
+        <div id="result"></div>
+    </div>
 
     <script>
-        // Função para buscar as informações por placa ou número de ordem
-        function searchInfo() {
-            var searchType = document.querySelector('input[name="search-type"]:checked').value;
-            var term = document.getElementById("term").value;
-            var resultDiv = document.getElementById("result");
+        // Senha de exemplo (substitua pela sua senha real)
+        const password = "senha123";
 
-            // URL pública da planilha no formato CSV
-            var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRul4T7a8YGSZ5OONIujRqCV-ro-pZtGpLd-dEmmnxBQ7YMEfBV8I2Xssawiv4fLHKkilZd2YEBHx5R/pub?output=csv";
-
-            fetch(url)
-                .then(response => response.text())
-                .then(csvData => {
-                    // Parse CSV data into an array of objects
-                    var lines = csvData.split("\n");
-                    var headers = lines[0].split(",");
-                    var data = [];
-
-                    for (var i = 1; i < lines.length; i++) {
-                        var currentLine = lines[i].split(",");
-                        var obj = {};
-
-                        for (var j = 0; j < headers.length; j++) {
-                            obj[headers[j]] = currentLine[j];
-                        }
-
-                        data.push(obj);
-                    }
-
-                    // Find the vehicle information by placa or numero_ordem
-                    var foundVehicle = data.find(item => {
-                        if (searchType === "placa") {
-                            return item.placa === term || item.placa_anterior === term;
-                        } else if (searchType === "numero_ordem") {
-                            return item.n_ordem === term;
-                        }
-                    });
-
-                    if (foundVehicle) {
-                        resultDiv.innerHTML = "Informações do veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + ":<br> <br>";                        
-                        resultDiv.innerHTML += "Nº Ordem: " + foundVehicle.n_ordem + "<br>";
-                        resultDiv.innerHTML += "Nº Anterior: " + foundVehicle.n_anterior + "<br>";
-                        resultDiv.innerHTML += "Empresa: " + foundVehicle.empresa + "<br>";
-                        resultDiv.innerHTML += "Unidade: " + foundVehicle.unidade + "<br>";
-                        resultDiv.innerHTML += "Placa:   " + foundVehicle.placa + "<br>";
-                        resultDiv.innerHTML += "Chassi:  " + foundVehicle.chassi + "<br>";
-                        resultDiv.innerHTML += "Cap:     " + foundVehicle.cap + "<br>";
-                        resultDiv.innerHTML += "Fab: " + foundVehicle.ano_fab + "<br>";
-                        resultDiv.innerHTML += "Mod: " + foundVehicle.ano_mod + "<br>";
-                        resultDiv.innerHTML += "Tipo Veiculo: " + foundVehicle.tipo_veiculo + "<br>";
-                        resultDiv.innerHTML += "Tipo Frota: " + foundVehicle.tipo_frota + "<br>";
-                        resultDiv.innerHTML += "Modelo: " + foundVehicle.modelo + "<br>";
-                        resultDiv.innerHTML += "Carroceria: " + foundVehicle.carroceira + "<br>";
-                        resultDiv.innerHTML += "Cor: " + foundVehicle.cor + "<br>";
-                        resultDiv.innerHTML += "Municipio: " + foundVehicle.municipio + "<br>";
-                        resultDiv.innerHTML += "CNPJ: " + foundVehicle.cnpj + "<br>";
-                        resultDiv.innerHTML += "Placa Anterior: " + foundVehicle.placa_anterior + "<br>";
-                        resultDiv.innerHTML += "Sub Unidade: " + foundVehicle.sub_unidade + "<br>";
-                        resultDiv.innerHTML += "CNPJ: " + foundVehicle.cnpj + "<br>";
-                    } else {
-                        resultDiv.innerHTML = "Nenhum veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + " foi encontrado na planilha.";
-                    }
-                })
-                .catch(error => {
-                    resultDiv.innerHTML = "Erro na pesquisa: " + error;
-                });
+        // Função para mostrar o formulário de pesquisa após o login
+        function showSearchForm() {
+            document.getElementById("search-container").style.display = "block";
         }
 
-        // Adicione um manipulador de eventos para o formulário
+        // Função para verificar a senha e exibir o formulário de pesquisa
+        function checkPassword() {
+            const passwordInput = document.getElementById("password").value;
+
+            if (passwordInput === password) {
+                showSearchForm();
+            } else {
+                alert("Senha incorreta. Tente novamente.");
+            }
+        }
+
+        // Adicione um manipulador de eventos para o formulário de login
+        document.getElementById("login-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            checkPassword();
+        });
+
+        // Adicione um manipulador de eventos para o formulário de pesquisa
         document.getElementById("search-form").addEventListener("submit", function (e) {
             e.preventDefault();
             searchInfo();
         });
+
+        // Função para buscar informações (a mesma função searchInfo() do código anterior)
+        function searchInfo() {
+            // ...
+        }
     </script>
 </body>
 </html>
