@@ -68,7 +68,7 @@
         function checkPassword() {
             const passwordInput = document.getElementById("password").value;
         
-            checkPasswordInSheet()
+            checkPasswordInSheet(passwordInput)
                 .then(passwords => {
                     if (passwords.includes(passwordInput)) {
                         showSearchForm();
