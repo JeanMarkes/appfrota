@@ -36,7 +36,8 @@
             const termoPesquisa = document.querySelector('#termo_pesquisa').value;
 
             // Realize a pesquisa na planilha publicada usando o link fornecido
-            $.get("https://docs.google.com/spreadsheets/d/e/2PACX-1vRul4T7a8YGSZ5OONIujRqCV-ro-pZtGpLd-dEmmnxBQ7YMEfBV8I2Xssawiv4fLHKkilZd2YEBHx5R/pub?gid=0&single=true&output=csv", function(data) {
+            $.get("https://docs.google.com/spreadsheets/d/e/2PACX-1vRul4T7a8YGSZ5OONIujRqCV-ro-pZtGpLd-dEmmnxBQ7YMEfBV8I2Xssawiv4fLHKkilZd2YEBHx5R/pub?gid=0&single=true&output=csv")
+            .done(function(data) {
                 var linhas = data.split('\n');
                 var resultado = [];
 
@@ -67,6 +68,12 @@
                     }
                     document.querySelector('#tabela_resultado tbody').innerHTML = "<tr><td colspan='3'>Nenhum resultado encontrado.</td></tr>";
                 }
+            })
+            .fail(function() {
+                if (tabela) {
+                    tabela.destroy();
+                }
+                document.querySelector('#tabela_resultado tbody').innerHTML = "<tr><td colspan='3'>Erro ao conectar à planilha.</td></tr>";
             });
         }
     </script>
