@@ -111,12 +111,13 @@
                         if (searchType === "placa") {
                             return item.placa === term || item.placa_anterior === term;
                         } else if (searchType === "numero_ordem") {
-                            return item.n_ordem === term;
+                            return item.n_ordem === term || item.n_anterior === term;
                         }
                     });
 
-                    if (foundVehicle) {
-                        resultDiv.innerHTML = "Informações do veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + ":<br> <br>";                        
+                    if (foundVehicles.length > 0) {
+                        resultDiv.innerHTML = "Informações dos veículos com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + ":<br> <br>";
+                        foundVehicles.forEach(foundVehicle => {                        
                         resultDiv.innerHTML += "Nº Ordem: " + foundVehicle.n_ordem + "<br>";
                         resultDiv.innerHTML += "Nº Anterior: " + foundVehicle.n_anterior + "<br>";
                         resultDiv.innerHTML += "Empresa: " + foundVehicle.empresa + "<br>";
