@@ -111,7 +111,7 @@
                         if (searchType === "placa") {
                             return item.placa === term || item.placa_anterior === term;
                         } else if (searchType === "numero_ordem") {
-                            return item.n_ordem === term;
+                            return item.n_ordem === term || item.n_anterior === term;
                         }
                     });
         
