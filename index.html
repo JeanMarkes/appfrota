@@ -4,7 +4,7 @@
     <title>App Frota</title>
 </head>
 <body>
-    <h1>Consulta</h1>
+    <h1>Consultas</h1>
 
     <form id="search-form">
         <label for="term">Tipo de Pesquisa:</label>
@@ -67,8 +67,7 @@
                     });
 
                     if (foundVehicle) {
-                        resultDiv.innerHTML = "Informações do veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + ":<br>";
-                        <br> <!-- Adicione outra quebra de linha aqui -->
+                        resultDiv.innerHTML = "Informações do veículo com " + (searchType === "placa" ? "placa" : "número de ordem") + " " + term + ":<br> <br>";                        
                         resultDiv.innerHTML += "Nº Ordem: " + foundVehicle.n_ordem + "<br>";
                         resultDiv.innerHTML += "Nº Anterior: " + foundVehicle.n_anterior + "<br>";
                         resultDiv.innerHTML += "Empresa: " + foundVehicle.empresa + "<br>";
