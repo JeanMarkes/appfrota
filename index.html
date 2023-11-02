@@ -98,11 +98,6 @@
             searchInfo();
         });
 
-        // Função para buscar informações (a mesma função searchInfo() do código anterior)
-        function searchInfo() {
-            // ...
-        }
-
         // Função para registrar as consultas
         function logQuery(senha, tipoPesquisa, dadoPesquisado) {
             // Obter a data e hora atual
@@ -129,38 +124,7 @@
             .catch(error => {
                 console.error("Erro na requisição para adicionar registro: " + error);
             });
-        }
-        
-        // Modifique a função checkPassword() para usar a função checkPasswordInSheet() com busca prévia
-        function checkPassword() {
-            const passwordInput = document.getElementById("password").value;
-        
-            checkPasswordInSheet(passwordInput)
-                .then(passwords => {
-                    if (passwords.includes(passwordInput)) {
-                        showSearchForm();
-                    } else {
-                        alert("Senha incorreta. Tente novamente.");
-                    }
-                })
-                .catch(error => {
-                    alert("Erro na verificação da senha: " + error);
-                });
-        }
-        
-        // Modifique a função searchInfo() para incluir o registro após a pesquisa
-        function searchInfo() {
-            var searchType = document.querySelector('input[name="search-type"]:checked').value;
-            var term = document.getElementById("term").value;
-            var resultDiv = document.getElementById("result");
-            
-        
-            // ...
-        
-            // Depois de encontrar os resultados, registre a consulta
-
-        }    
-        
+        }                
     </script>
 
     <script>
