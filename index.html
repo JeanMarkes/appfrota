@@ -5,31 +5,64 @@
 </head>
 <body>
     <h1>Pesquisa de Placa</h1>
-    <label for="placa">Digite a placa:</label>
-    <input type="text" id="placa" placeholder="Ex: OVQ-6650">
-    <button id="pesquisar">Pesquisar</button>
-    <div id="resultado"></div>
+    
+    <form id="search-form">
+        <label for="placa">Digite a placa do veículo:</label>
+        <input type="text" id="placa" name="placa" required>
+        <button type="submit">Pesquisar</button>
+    </form>
+    
+    <div id="result"></div>
 
     <script>
-        document.getElementById("pesquisar").addEventListener("click", function () {
+        // Função para buscar as informações da placa
+        function searchPlaca() {
             var placa = document.getElementById("placa").value;
-            if (placa.trim() === "") {
-                alert("Por favor, digite uma placa.");
-                return;
-            }
+            var resultDiv = document.getElementById("result");
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "seu_script_python.py?placa=" + placa, true);
+            // URL pública da planilha no formato CSV
+            var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRul4T7a8YGSZ5OONIujRqCV-ro-pZtGpLd-dEmmnxBQ7YMEfBV8I2Xssawiv4fLHKkilZd2YEBHx5R/pub?output=csv";
 
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    document.getElementById("resultado").innerHTML = xhr.responseText;
-                } else {
-                    alert("Ocorreu um erro na solicitação.");
-                }
-            };
+            fetch(url)
+                .then(response => response.text())
+                .then(csvData => {
+                    // Parse CSV data into an array of objects
+                    var lines = csvData.split("\n");
+                    var headers = lines[0].split(",");
+                    var data = [];
 
-            xhr.send();
+                    for (var i = 1; i < lines.length; i++) {
+                        var currentLine = lines[i].split(",");
+                        var obj = {};
+
+                        for (var j = 0; j < headers.length; j++) {
+                            obj[headers[j]] = currentLine[j];
+                        }
+
+                        data.push(obj);
+                    }
+
+                    // Find the vehicle information
+                    var foundVehicle = data.find(item => item.placa === placa);
+
+                    if (foundVehicle) {
+                        resultDiv.innerHTML = "Informações do veículo com placa " + placa + ":<br>";
+                        resultDiv.innerHTML += "Unidade: " + foundVehicle.unidade + "<br>";
+                        resultDiv.innerHTML += "Chassi: " + foundVehicle.chassi + "<br>";
+                        resultDiv.innerHTML += "Renavam: " + foundVehicle.renavam + "<br>";
+                    } else {
+                        resultDiv.innerHTML = "A placa " + placa + " não foi encontrada na planilha.";
+                    }
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = "Erro na pesquisa: " + error;
+                });
+        }
+
+        // Adicione um manipulador de eventos para o formulário
+        document.getElementById("search-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            searchPlaca();
         });
     </script>
 </body>
