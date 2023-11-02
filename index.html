@@ -6,7 +6,7 @@
     <title>App Frota - Login</title>
 </head>
 <body>
-    <h2>Acesso Restrito.</h2>
+    <h2>Acesso Restrito</h2>
     
     <form id="login-form">
         <label for="password">Senha:</label>
@@ -17,7 +17,7 @@
     </form>
 
     <div id="search-container" style="display: none;">
-        <h2>Consultas liberada</h2>
+        <h2>Consulta liberada</h2>
 
         <form id="search-form">
             <label for="term">Tipo de Pesquisa:</label>
@@ -143,7 +143,10 @@
                         if (searchType === "placa") {
                             return item.placa === term || item.placa_anterior === term;
                         } else if (searchType === "numero_ordem") {
-                            return item.n_ordem === term || item.n_anterior === term;
+                            return (
+                                item.n_ordem.toLowerCase().includes(term) || // Use toLowerCase para ignorar maiúsculas/minúsculas
+                                item.n_anterior.toLowerCase().includes(term) // Use toLowerCase para ignorar maiúsculas/minúsculas
+                            );
                         }
                     });
         
